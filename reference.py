@@ -28,7 +28,7 @@ repeat_string = my_string * 2 # "HelloHello"
 # finding in string
 
 found_in_string = 'l' in my_string.lower() # Returns True
-index_in_string = my_string.lower().index('H') if found_in_string else -1 # Returns: 0
+index_in_string = my_string.lower().index('h') if found_in_string else -1 # Returns: 0
 
 name = "  John \t"
 name.strip()
@@ -619,9 +619,9 @@ hand = random.sample(deck, k=5)  # gimme 5 random unique cards
 
 import re
 
-re.match() # checks for a match only at the beginning of the string
-re.search() # checks for a match anywhere in the string (this is what Perl does by default)
-re.fullmatch() # checks for entire string to be a match
+re.match("test") # checks for a match only at the beginning of the string
+re.search("test") # checks for a match anywhere in the string (this is what Perl does by default)
+re.fullmatch("test") # checks for entire string to be a match
 
 text = "this is my text\nthis is more"
 
@@ -684,8 +684,8 @@ with open('sample.txt', "r+") as file:
 # Math
 #=================
 
-10 / 4 = 2.5
-10 // 4 = 2
+floaty = 10 / 4   # 2.5
+floory = 10 // 4  # 2
 
 import math
 
