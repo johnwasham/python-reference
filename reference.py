@@ -619,9 +619,11 @@ hand = random.sample(deck, k=5)  # gimme 5 random unique cards
 
 import re
 
-re.match("test") # checks for a match only at the beginning of the string
-re.search("test") # checks for a match anywhere in the string (this is what Perl does by default)
-re.fullmatch("test") # checks for entire string to be a match
+sentence = "something"
+
+re.match("test", sentence) # checks for a match only at the beginning of the string
+re.search("test", sentence) # checks for a match anywhere in the string (this is what Perl does by default)
+re.fullmatch("test", sentence) # checks for entire string to be a match
 
 text = "this is my text\nthis is more"
 
@@ -679,6 +681,15 @@ with open('sample.txt', "r+") as file:
 #=================
 
 
+#=================
+# Rounding
+#=================
+
+rounded = round(5.2347)
+rounded = round(5.2347, 2)
+
+# cut off decimal places
+some_int = int(5.7232) # 5
 
 #=================
 # Math
@@ -697,6 +708,11 @@ print(math.pow(2, 3))
 # Max / Min Int
 float("inf")
 float("-inf")
+
+x = 5.3626
+
+math.floor(x)
+math.ceil(x)
 
 #=================
 # Misc
