@@ -37,7 +37,7 @@ name.rstrip()
 
 # reverse a string
 sentence = "I like coffee"
-''.join(reversed(sentence))
+''.join(reversed(sentence)) # cannot just use reversed()
 
 # iterating
 
@@ -130,6 +130,9 @@ dlist.sort()
 dlist.sort(reverse=True)
 dlist.reverse()
 dlist.sort(key=lambda x: len(x))
+
+foo = [1, 2]
+foo.extend([3, 4]) # [1, 2, 3, 4]
 
 large_list = [ ... ]
 large_list.copy() # to avoid editing a reference
@@ -713,6 +716,11 @@ x = 5.3626
 
 math.floor(x)
 math.ceil(x)
+
+# Exponentiation
+
+2**2 == 4  # proper exponentiation
+2^2 == 0 # NO!! BITWISE OR
 
 #=================
 # Misc
