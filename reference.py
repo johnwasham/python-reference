@@ -720,7 +720,18 @@ math.ceil(x)
 # Exponentiation
 
 2**2 == 4  # proper exponentiation
-2^2 == 0 # NO!! BITWISE OR
+2^2 == 0 # NO!! BITWISE XOR
+
+#=================
+# Annotations
+#=================
+
+# @staticmethod does not require access to object members, used for utility methods
+
+class MyMath:
+    @staticmethod
+    def add(a, b):
+        return a + b
 
 #=================
 # Misc
