@@ -31,9 +31,9 @@ found_in_string = 'l' in my_string.lower() # Returns True
 index_in_string = my_string.lower().index('h') if found_in_string else -1 # Returns: 0
 
 name = "  John \t"
-name.strip()
-name.lstrip()
-name.rstrip()
+newname = name.strip()
+newname = name.lstrip()
+newname = name.rstrip()
 
 # reverse a string
 sentence = "I like coffee"
@@ -126,13 +126,13 @@ dlist.remove("New York") # removes first occurrence
 dlist.pop() # defaults to -1, but can set any index
 dlist[3] = "Helsinki" # replace an item
 
-dlist.sort()
-dlist.sort(reverse=True)
-dlist.reverse()
-dlist.sort(key=lambda x: len(x))
+dlist.sort() # in-place
+dlist.sort(reverse=True) # in-place
+dlist.reverse() # in-place
+dlist.sort(key=lambda x: len(x), reverse=True) # in-place
 
 foo = [1, 2]
-foo.extend([3, 4]) # [1, 2, 3, 4]
+foo.extend([3, 4]) # in-place # [1, 2, 3, 4]
 
 large_list = [ ... ]
 large_list.copy() # to avoid editing a reference
@@ -174,7 +174,7 @@ nums1 = [1, 3, 5, 8]
 nums2 = [2, 4, 6]
 nums3 = [1000, 1500, 3000, 5000, 123]
 # zip returns a zip object, have to convert to list!
-combined = list(zip(nums1, nums2, nums3))
+combined = list(zip(nums1, nums2, nums3))  # [(1, 2, 1000), (3, 4, 1500), (5, 6, 3000)]
 
 #=================
 # Tuples
@@ -213,7 +213,8 @@ destination_events = {
     "Japan": ["Sapporo Snow Festival", "Cherry Blossom Viewing"]
 }
 
-destination_events.items() # Return a set-like object providing a view on the dict's items.
+for k, v in destination_events.items():  # Return a set-like object providing a view on the dict's items.
+    print(k, "=", v)
 
 # iterating
 
@@ -261,6 +262,8 @@ for i in range(5, 1, -1):
 print(my_list[::2]) # every other item
 
 print(my_list[::-1]) # reverse list
+# or
+my_list.reverse() # in place
 
 #=====================
 # Gotcha!
@@ -270,7 +273,7 @@ print(my_list[::-1]) # reverse list
 # this is how you fix it
 
 def mutation(lst=None):
-    if lst == None: 
+    if lst is None:
         lst = []
     lst.append(10)
 
@@ -355,7 +358,7 @@ help(print) # displays help page for print()
 
 list_of_words = ["apple", "mouse", "fox"]  # sets ok too
 
-lengths = map(len, list_of_words)
+lengths = map(len, list_of_words) # lengths is a map object, not a map/dict
 # convert to list
 print(list(lengths))
 
@@ -366,7 +369,7 @@ print(list(my_things))
 # ints
 
 list_of_numbers = [24, 6, 83, 36]  # sets ok too
-larges = filter(lambda x: x > 30, list_of_numbers)
+larges = filter(lambda x: x > 30, list_of_numbers) # larges is a filter object
 # convert to list
 print(list(larges))
 
@@ -389,7 +392,7 @@ sorted_list = sorted(my_list)
 
 person_objects = [ 
     # Person objects here
-] 
+]
 
 sorted_list = sorted(person_objects, key=lambda person: person.age)
 
@@ -504,6 +507,16 @@ print(minHeap[0])
 while len(minHeap):
     print(heapq.heappop(minHeap))
 
+# in 3.14, max heaps are supported without negating
+
+maxHeap = []
+heapq.heapify_max(maxHeap)
+heapq.heappush_max(maxHeap, 3)
+# pop
+heapq.heappop_max(maxHeap)
+
+# old behavior:
+
 # No max heaps by default, work around is
 # to use min heap and multiply by -1 when push & pop.
 maxHeap = []
@@ -535,7 +548,7 @@ def outer(a, b):
         return a + b + c
     return inner()
 
-print(outer("a", "b"))
+print(outer("a", "b"))  # abc
 
 # Can modify objects but not reassign
 # unless using nonlocal keyword
@@ -602,19 +615,21 @@ class InventoryItem:
 import random
 
 rand = random
-print(rand.random())
+print(rand.random())  # 0.8508336636430176  # 0.0 <= X < 1.0
 print(rand.randint(1, 6))  # random int between 1 and 6
-print(rand.uniform(1, 10))  # random float between 1 and 10
+print(rand.uniform(1, 10))  # random float between 1 and 10   # 3.2739629055142294
 print(rand.choice(["hello", "hola", "안녕하세요"]))  # random greeting
+# choices (note the s)
 print(rand.choices(["hello", "hola", "안녕하세요"], k=10))  # creates list of 10 random greetings
 print(rand.choices(["hello", "hola", "안녕하세요"], weights=[10, 5, 15], k=10))  # sets weights for each (10/30 for example)
 
 nums = [1, 2, 3, 4]
 random.shuffle(nums)  # shuffles in place
-print(nums)
+print(nums)   # [2, 4, 1, 3]
 
 deck = list(range(1, 53))
 hand = random.sample(deck, k=5)  # gimme 5 random unique cards
+print(hand)  # [9, 34, 30, 27, 19]
 
 #=================
 # Regex
@@ -640,7 +655,8 @@ if re.match("my", text):
 search = re.search(r"my\stext", text)
 # print("search:", search)  # just a map object
 print("start index:", search.start())
-print("end index:", search.end())  # use end - 1 for index
+print("end index:", search.end())  # use end - 1 for index in string of last char match (15 means index 14)
+# i think the end is index + 1 in order to use it with slice: text[search.start():search.end()]
 
 results = re.findall(r"((?:th|te)\w+)", text)  # ?: non-capturing
 print(results)  # prints matched portions, across all lines (multiple captures result in tuple for each match)
@@ -668,7 +684,7 @@ with open('sample.txt', 'w') as f:
 # a     Append-only. Adds data to end. Creates file if it doesn't exist.
 # a+	Read and append. Pointer at end. Creates file if it doesn't exist.
 
-# after using open() with right mode
+# after using open() with write mode
 with open('sample.txt', 'w') as file:
     file.write("hello") # will overwrite file unless using "a" mode
 
@@ -678,6 +694,12 @@ with open('sample.txt', "r+") as file:
     file.write("hello") # appends since pointer is at end
 
 # for append, add \n to put on new line
+
+# reading all lines from file
+with open('sample.txt', 'r') as file:
+    lines = file.readlines()
+    for line in lines:
+        print(line)
 
 #=================
 # MultiProcessing
